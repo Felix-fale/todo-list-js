@@ -4,7 +4,8 @@ const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
 
 // ECOUTEURS
-todoButton.addEventListener("click", addTodo);
+todoButton.addEventListener("click", addTodo); // 1-boutton ajout
+todoList.addEventListener("click", deleteChek); // 2-boutton suppression
 
 // FONCTIONS
 function addTodo(e) {
@@ -16,7 +17,7 @@ function addTodo(e) {
   todoDiv.classList.add("todo");
   //   ============ creer un li avec une class todo-item ===========
   const newTodo = document.createElement("li");
-//   newTodo.innerText = "hey";
+  //   newTodo.innerText = "hey";
   newTodo.innerText = todoInput.value; //pour recuperer la valeur saisie dans l'input
   newTodo.classList.add("todo-item");
   todoDiv.appendChild(newTodo);
@@ -36,6 +37,23 @@ function addTodo(e) {
   //   ========== AJOUTER NOTRE TODO A TODO-LIST =====
   todoList.appendChild(todoDiv);
 
-//   =========
+  //   ========= remettre a zero l'input apres un nouvel ajout ======
+  todoInput.value = "";
+}
 
+// === DEUXIEME FACON D4ECRIRE UNE FONCTION; utilisation de (EVENT = e)===
+
+// const deleteChek = (event) => {
+//     console.log('a');
+// } // La fonction flechée ne marche pas dans ce cas, a chercher pour plus de comprehension
+
+function deleteChek(event) {
+  //   console.log(event.target); // on arrive selectionner les deux button liées a todoList
+
+  const item = event.target;
+  //   delete todo ... (classList[0] === Pour selectionner une class enfant dans une class parent * EXEMPLE: dans ce cas nous avons selectionner 'completed-btn' dans ".todo-list" )
+
+  if (item.classList[0] === "completed-btn") {
+    item.remove();
+  }
 }
