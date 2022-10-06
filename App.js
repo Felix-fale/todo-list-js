@@ -16,22 +16,26 @@ function addTodo(e) {
   todoDiv.classList.add("todo");
   //   ============ creer un li avec une class todo-item ===========
   const newTodo = document.createElement("li");
-  newTodo.innerText = "hey";
+//   newTodo.innerText = "hey";
+  newTodo.innerText = todoInput.value; //pour recuperer la valeur saisie dans l'input
   newTodo.classList.add("todo-item");
   todoDiv.appendChild(newTodo);
 
-  //   ===========creeer le bouton check =========
+  //   ===========creer le bouton check =========
   const completedButton = document.createElement("button");
   completedButton.innerHTML = '<i class="fas fa-check"></i>';
   completedButton.classList.add("completed-btn");
   todoDiv.appendChild(completedButton);
 
-  //   ===========creeer le bouton supprimer =========
+  //   ===========creer le bouton supprimer =========
   const trashButton = document.createElement("button");
   trashButton.innerHTML = '<i class="fas fa-trash"></i>';
   trashButton.classList.add("trash-btn");
   todoDiv.appendChild(trashButton);
-  
-  //   AJOUTER NOTRE TODO A TODO-LIST
+
+  //   ========== AJOUTER NOTRE TODO A TODO-LIST =====
   todoList.appendChild(todoDiv);
+
+//   =========
+
 }
