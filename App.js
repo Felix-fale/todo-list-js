@@ -51,9 +51,26 @@ function deleteChek(event) {
   //   console.log(event.target); // on arrive selectionner les deux button liées a todoList
 
   const item = event.target;
-  //   delete todo ... (classList[0] === Pour selectionner une class enfant dans une class parent * EXEMPLE: dans ce cas nous avons selectionner 'completed-btn' dans ".todo-list" )
+  //   delete todo ... (classList[0] === Pour selectionner une class enfant dans une class parent * EXEMPLE: dans ce cas nous avons selectionner 'completed-btn' dans ".todo-list ou plus precisement todo" )
 
+  // if (item.classList[0] === "completed-btn") {
+  //   item.remove();
+  // } // Grace a cette condition on arrive a supprimer le boutton delete
+
+  if (item.classList[0] === "trash-btn") {
+    // item.parentElement.remove(); // Pour faire simple, on fait sa
+
+    const todo = item.parentElement;
+    todo.classList.add("fall");
+    // todo.remove(); // La raison ... 41:39m
+    todo.addEventListener("transitionend", function () {
+      todo.remove();
+    }); //Cette evenement va attendre la fin de lajout de la class faal avant de s'executer
+  }
+
+  // CHECK MARK
   if (item.classList[0] === "completed-btn") {
-    item.remove();
+    const todo = item.parentElement;
+    todo.classList.toggle("completed");
   }
 }
