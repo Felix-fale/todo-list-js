@@ -2,10 +2,12 @@
 const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
+const filterOption = document.querySelector(".filter-todo");
 
 // ECOUTEURS
 todoButton.addEventListener("click", addTodo); // 1-boutton ajout
 todoList.addEventListener("click", deleteChek); // 2-boutton suppression
+filterOption.addEventListener("input", filterTodo);
 
 // FONCTIONS
 function addTodo(e) {
@@ -65,7 +67,7 @@ function deleteChek(event) {
     // todo.remove(); // La raison ... 41:39m
     todo.addEventListener("transitionend", function () {
       todo.remove();
-    }); //Cette evenement va attendre la fin de lajout de la class faal avant de s'executer
+    }); //Cette evenement va attendre la fin de l'ajout de la class fall avant de s'executer
   }
 
   // CHECK MARK
@@ -73,4 +75,30 @@ function deleteChek(event) {
     const todo = item.parentElement;
     todo.classList.toggle("completed");
   }
+}
+
+function filterTodo(e) {
+  const todos = todoList.childNodes;
+  // console.log(todos);
+  todos.forEach(function (todo) {
+    switch (e.target.value) {
+      case "all":
+        todo.style.display = "flex";
+        break;
+      case "completed":
+        if (todo.classList.contains("completed")) {
+          todo.style.display = "flex";
+        } else{
+          todo.style.display = "none";
+        }
+        break;
+      case "uncompleted":
+        if (!todo.classList.contains("completed")) {
+          todo.style.display = "flex";
+        } else {
+          todo.style.display = "none";
+        }
+        break;
+    }
+  });
 }
