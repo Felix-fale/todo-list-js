@@ -24,6 +24,9 @@ function addTodo(e) {
   newTodo.classList.add("todo-item");
   todoDiv.appendChild(newTodo);
 
+  // ========== Ajouter la todo au localStorage ===========
+  saveLocalTodos(todoInput.value);
+
   //   ===========creer le bouton check =========
   const completedButton = document.createElement("button");
   completedButton.innerHTML = '<i class="fas fa-check"></i>';
@@ -88,7 +91,7 @@ function filterTodo(e) {
       case "completed":
         if (todo.classList.contains("completed")) {
           todo.style.display = "flex";
-        } else{
+        } else {
           todo.style.display = "none";
         }
         break;
@@ -100,5 +103,55 @@ function filterTodo(e) {
         }
         break;
     }
+  });
+}
+// =============================== SAVE =================
+function saveLocalTodos(todo) {
+  // Checker au chargement de la page s'il y a des items existants
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function getTodo() {
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+
+  todos.forEach(function (todo) {
+    //   ============= Creer une Div avec une class todo ==============
+    const todoDiv = document.createElement("div");
+    todoDiv.classList.add("todo");
+    //   ============ creer un li avec une class todo-item ===========
+    const newTodo = document.createElement("li");
+    newTodo.innerText = todoInput.value; //pour recuperer la valeur saisie dans l'input
+    newTodo.classList.add("todo-item");
+    todoDiv.appendChild(newTodo);
+
+    // ========== Ajouter la todo au localStorage ===========
+    saveLocalTodos(todoInput.value);
+
+    //   ===========creer le bouton check =========
+    const completedButton = document.createElement("button");
+    completedButton.innerHTML = '<i class="fas fa-check"></i>';
+    completedButton.classList.add("completed-btn");
+    todoDiv.appendChild(completedButton);
+
+    //   ===========creer le bouton supprimer =========
+    const trashButton = document.createElement("button");
+    trashButton.innerHTML = '<i class="fas fa-trash"></i>';
+    trashButton.classList.add("trash-btn");
+    todoDiv.appendChild(trashButton);
+
+    //   ========== AJOUTER NOTRE TODO A TODO-LIST =====
+    todoList.appendChild(todoDiv);
   });
 }
